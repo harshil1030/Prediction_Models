@@ -1,0 +1,174 @@
+<html>
+    <head>
+        <title>Car Price Prediction</title>
+        <script src=https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.js></script>
+    </head>
+    <style>
+        body{
+            background-image: url("img/h.jpg");
+            font-family: sans-serif;
+            font-size: 25px;
+            text-align: center;
+            
+           }
+           .c{
+               text-align: center;  
+               color: rgb(2, 1, 1);
+               padding: 12px ;
+               padding-left: 10px;
+               padding-bottom: 0px;
+              font-size: 25px;
+           }
+           .head{
+               color: rgb(59, 56, 56);
+           }
+
+        form{
+            display: inline-block;
+            text-align: center;
+        }
+        .box{
+            background-color: transparent;
+            color: white;
+            margin: 40px;                            
+            }  
+            input[type="text"]{
+
+            font-family://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.js  
+            background: transparent;
+            border-color: rgb(18, 18, 18);
+            color: rgb(5, 108, 113);
+            font-size: 14px;
+            outline: none;  
+            padding: 3px;     
+            font-weight: bold;
+            
+        }
+           input[type="button"]{
+               align-self: center;
+               background-color: rgb(20, 20, 15);
+               color: white;
+               font-family: Candara Light;
+               border-radius: 8px;
+               font-size: 18px;
+               padding: 10px;  
+               padding-left: 10px;             
+           }
+        .t{
+            font-size: 28px;
+            color: rgb(10, 9, 9);
+        }       
+       .e{
+           background-color: black;
+           padding: 80px;
+           margin: 20;
+           
+        }
+        .f{
+            font-size: 18px;
+        }
+        .top {
+  overflow: auto;
+  align-self: center;
+  margin: 80px;
+ 
+}
+</style>
+
+<!--Input Table-->
+    <body>
+        <div class="c">
+            <h1>Car Price Predictor</h1>
+        </div> 
+        <h1 class="head">Predict your Car Price On Your Fingertips</h1>
+        <form class="box" name="myform" method="post" action="{{url_for('predict')}}" accept-charset="utf-8">
+            
+            <div ng-app="">
+                <table class="table">
+                    <tr>                
+                        
+                        <td id="f">Enter Company Name:-</td>
+                        <td><select name="company" id="company">
+                            {% for company in companies %}
+                             <option value="{{company}}">{{company}}</option>
+                            {% endfor%}
+                          </select></td>
+                    </tr>
+                    <tr>
+                        <td>Enter Model:-</td>
+                        <td>  <select name="model" id="model">
+                            {% for model in model %}
+                            <option value="{{model}}">{{model}}</option>
+                           {% endfor%}
+                          </select></td>
+                    </tr>
+                    <tr>
+                        <td>Enter Transmission Type:-</td>
+                        <td>  <select name="transmission_type" id="transmission_type">
+                            {% for transmission_type in transmission_type %}
+                            <option value="{{transmission_type}}">{{transmission_type}}</option>
+                           {% endfor%}
+                          </select></td>
+                    </tr>
+                    <tr>
+                        <td id="font">Enter Year Of Purchase:-</td>
+                        <td>  <select name="year" id="year">
+                             {% for year in year %}
+                             <option value="{{year}}">{{year}}</option>
+                            {% endfor%}
+                          </select></td>
+                    </tr>
+                    <tr>
+                        <td>Fuel type:-</td>
+                        <td>  <select name="fuel_type" id="fuel_type">
+                          {% for fuel_type in fuel_type %}
+                             <option value="{{fuel_type}}">{{fuel_type}}</option>
+                            {% endfor%}
+                          </select></td>
+                    </tr>
+                    <tr>
+                        <td>Enter No of kms Travelled :-</td>
+                        <td><input type="text" name="km_driven" id="km_driven" placeholder="Enter No of kms Driven"></td>
+                    </tr>
+
+    <!--button-->
+                    <tr class="btn">
+                        <td> <button  type="submit" class="btn btn-primary form-control" onclick="url_for">Predict Price</button></td><br> <br>
+                    </tr>
+                </table>
+    </div></form>
+
+    <!--Result Text Div Div-->
+    <br>
+    <div class="row">
+        <div class="col-12" style="text-align:center">
+        <h4><span id="prediction"> 
+        </span></h4>
+        </div>
+    </div>
+
+
+    <script>
+        function form_handler(event){
+            event.preventDefault();
+        }
+
+        function send_data(){
+            document.querySelector('form').addEventListener("submit",form_handler);
+            var fd=new FormData(document.querySelector('form'));
+
+            var xhr=new XMLHttpRequest({mozSystem: true});
+            xhr.open('POST','/predict',true);
+            document.getElementById('prediction').innerHTML="Wait ! Predicting price...";
+            xhr.onreadystatechange=function()
+            {
+                if(xhr.readyState == XMLHttpRequest.DONE){
+                    document.getElementById("prediction").innerHTML="Prediction: "+ (xhr.responseText);
+                }
+            };  
+            xhr.onload=function(){};
+            xhr.send(fd);
+        }
+    </script>
+    </body>
+</html>

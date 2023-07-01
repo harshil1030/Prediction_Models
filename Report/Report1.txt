@@ -1,0 +1,7 @@
+
+Step1: Dropped Last useless columns (53 : 141) Dropped.
+ 
+Step2: Dropping Useless Columns from Selected(52) columns.
+
+G. Cylinder
+H,I ,J,L,M,T,(U,V),X,Y,Z,AA,AB,AC,AD,AE,AF,AJ,AK,AL,AM,AP,AQ,AR,AS,AT,AU,AX,AY,AZ.

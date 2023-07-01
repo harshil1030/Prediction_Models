@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Car Price Prediction</h2>
+                        <form method="POST" class="register-form" id="register-form">
+                            <!-- <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="name" id="name" placeholder="Your Name"/>
+                            </div> -->
+
+                            <div class="form-group">
+                            <td id="f">Company Name &nbsp; &nbsp; &nbsp; &nbsp; </td>
+
+                        <td><select class="select" id="company" name="company" required="1"
+                            onchange="load_car_models(this.id,'car_models')">
+                            {% for company in companies %}
+                             <option value="{{company}}">{{company}}</option>
+                            {% endfor%}
+                          </select></td>
+                          </div>
+
+                          <div class="form-group">
+                          <tr class='r1'>
+                            <td>Model &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td>  <select class="select" id="car_models" name="car_models" required="1">
+                                {% for model in model %}
+                                <option value="{{model}}">{{model}}</option>
+                               {% endfor%}
+                              </select></td>
+                            </tr>
+                            </div>  
+
+
+                        <div class="form-group">
+                        <tr class='r1'>
+                            <td>Transmission Type </td>
+                            <td>  <select class="select" name="transmission_type" id="transmission_type" ,required="1">
+                                {% for transmission_type in transmission_type %}
+                                <option value="{{transmission_type}}">{{transmission_type}}</option>
+                               {% endfor%}
+                              </select></td>
+                        </tr>
+                        </div>
+                        <div class="form-group">
+                        <tr class='r1'>
+                            <td id="font" >Year Of Purchase </td>
+                            <td>  <select class="select" name="year" id="year">
+                                 {% for year in year %}
+                                 <option value="{{year}}">{{year}}</option>
+                                {% endfor%}
+                              </select></td>
+                        </tr>
+                        </div>
+
+                        <div class="form-group">
+                        <tr class='r1'>
+                            <td>Fuel type &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                            <td>  <select class="select" name="fuel_type" id="fuel_type" ,required="1">
+                              {% for fuel_type in fuel_type %}
+                                 <option value="{{fuel_type}}">{{fuel_type}}</option>
+                                {% endfor%}
+                              </select></td>
+                        </tr>
+                        </div>
+
+                        <div class="form-group">
+                        <class class="form-group">
+                        <tr class='r1'>
+                            <td>Kms Travelled</td>
+                            <td><input type="text" name="km_driven" id="km_driven" placeholder="Enter No of kms Driven"></td>
+                        </tr>
+                        </class>
+                        </div>
+        <!--button-->
+                        <tr class="button">
+                            <td> <button  type="submit" class="btn btn-primary form-control" onclick="url_for">Predict Price</button></td><br> <br>
+                        </tr>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="images/signup-image.jpg" alt="sing up image"></figure>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        function load_car_models(company_id,car_model_id)
+        {
+            var company=document.getElementById(company_id);
+            var car_model= document.getElementById(car_model_id);
+            console.log(company.value);
+            car_model.value="";
+            car_model.innerHTML="";
+            {% for company in companies %}
+                if( company.value == "{{ company }}")
+                {
+                    {% for model in car_models %}
+                        {% if company in model %}
+    
+                            var newOption= document.createElement("option");
+                            newOption.value="{{ model }}";
+                            newOption.innerHTML="{{ model }}";
+                            car_model.options.add(newOption);
+                        {% endif %}
+                    {% endfor %}
+                }
+            {% endfor %}
+        }
+        
+        function form_handler(event){
+            event.preventDefault();
+        }
+
+        function send_data(){
+            document.querySelector('form').addEventListener("submit",form_handler);
+            var fd=new FormData(document.querySelector('form'));
+
+            var xhr=new XMLHttpRequest({mozSystem: true});
+            xhr.open('POST','/predict',true);
+            document.getElementById('prediction').innerHTML="Wait ! Predicting price...";
+            xhr.onreadystatechange=function()
+            {
+                if(xhr.readyState == XMLHttpRequest.DONE){
+                    document.getElementById("prediction").innerHTML="Prediction: "+ (xhr.responseText);
+                }
+            };  
+            xhr.onload=function(){};
+            xhr.send(fd);
+        }
+    </script>
+
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
