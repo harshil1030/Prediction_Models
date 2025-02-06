@@ -6,13 +6,13 @@ import pickle
 
 app = Flask(__name__)
 cors=CORS(app)
-model1=pickle.load(open("D:\Prediction_Models\Car Price Prediction\LinearRegressionModel.pkl",'rb'))
-pipe = pickle.load(open('D:\Prediction_Models\Laptop_Price_Prediction\pipe.pkl','rb'))
+model1=pickle.load(open("Car Price Prediction\LinearRegressionModel.pkl",'rb'))
+pipe = pickle.load(open('Laptop_Price_Prediction\pipe.pkl','rb'))
 # df = pickle.load(open('df.pkl','rb'))
 # model1='LinearRegressionModel.pkl'
-car=pd.read_csv("D:\Prediction_Models\Car Price Prediction\cardekho_updated.csv")
+car=pd.read_csv("Car Price Prediction\data\cardekho_updated.csv")
 # df=pd.read_csv("D:\Capstone Project-1\Laptop_Price_Prediction\laptop_data_final.csv")
-df=pd.read_csv("D:\Prediction_Models\Laptop_Price_Prediction\lappy.csv")
+df=pd.read_csv("Laptop_Price_Prediction\lappy.csv")
 
 
 #Main Page

@@ -808,7 +808,7 @@ label.valid {
                 if( company.value == "{{ company }}")
                 {
                     {% for model in car_models %}
-                        {% if company in model %}
+                        {% if company|string in model %}
     
                             var newOption= document.createElement("option");
                             newOption.value="{{ model }}";
