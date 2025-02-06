@@ -18,4 +18,4 @@ wincertstore==0.2
 gunicorn==21.2.0
 flask-cors==4.0.0
 pandas==2.1.4
-pickle5  # Only needed if using Python <3.8
+pickle-mixin  # Only needed if using Python <3.8
